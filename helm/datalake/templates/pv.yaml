@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.pv.name }}
+  annotations:
+    werf.io/weight: "{{ .Values.pv.weight }}"
+spec:
+  storageClassName: {{ .Values.pv.storageClassName }}
+  capacity:
+    storage: {{ .Values.pv.storage }}
+  accessModes:
+    - {{ .Values.pv.accessModes }}
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
+  csi:
+    driver: filestore.csi.storage.gke.io
+    volumeHandle: "modeInstance/{{ .Values.pv.volumeHandle.location }}/{{ .Values.pv.volumeHandle.instanceName }}/{{ .Values.pv.volumeHandle.shareName }}"
+    volumeAttributes:
+      ip: {{ .Values.pv.volumeAttributes.ip }}
+      volume: {{ .Values.pv.volumeAttributes.volume }}

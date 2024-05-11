@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>CAD System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'main_page_2.css') }}">
+
+
+    <!-- <link rel="stylesheet" type="text/css" href="main_page_2.css"> -->
+
+
+</head>
+<body>
+    <div class="container" st>
+        <div id="blank_div" style="height: 60%;">
+
+            <div class="message">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                <span>{{ message }}</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+        </div>
+        <div id="control_buttons" style="width: 100%; height: 40%; display: flex; flex-direction: column; align-items: center;">
+            <div id="images_buttons" style="width: 100%; height: 90%; display: flex; align-items: center;">
+                <div style="height: 80%; width: 100%; display: flex; flex-direction: column; align-items: center;">
+
+                    <div style="height: 100%; width: 80%; background-color: rgba(29, 108, 126, 0.6); border-radius: 20px; display: flex; flex-direction: column;">
+
+                        <div class="controls" style="height: 50%; text-align: center; display: flex; flex-direction: column; justify-content: space-around;">
+                            <div style="display: flex; flex-direction: row;  align-items: center; justify-content: center; ">
+                                <form action="/preprocess-video", method="GET">
+                                    <div class="custom-file" style="margin-top: 5px; margin-bottom:20px">
+                                        <button id="btn_extract_hq" type="submit" class="home">Extract High Quality Frames</button>
+                                    </div>
+                                </form>
+
+                                <form action="process-frames", method="GET">
+                                    <div class="custom-file" style="margin-top: 5px; margin-bottom:20px">
+                                        <button id="btn_auto_process" type="submit" class="home">Auto Process High Quality Frames</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+                        <div style="height: 50%; text-align: center; display: flex; flex-direction: column; justify-content: space-around;">
+                            <form action="/home" method="GET" enctype="multipart/form-data" style="height: 100%;">
+                                <div class="custom-file" style="margin-top: 5px; margin-bottom:20px; height: 100%;">
+                                    <button type="submit" class="home" id="home_btn_id" >
+                                        <img src="/static/mats/home_btn.png" alt="" style="height: 100%; width: 100%; padding: 10px;">
+
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <script src="{{ url_for('static', filename = 'script_2.js') }}"></script>
+
+    <!-- <script src="script_page_2.js"></script> -->
+
+</body>
+</html>

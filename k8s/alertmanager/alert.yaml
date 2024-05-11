@@ -1,0 +1,20 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  namespace: monitoring
+  name: targets
+  labels:
+    prometheus: main
+spec:
+  groups:
+    - name: targets
+      rules:
+        - alert: IQAHighCPU
+          expr: sum(rate(container_cpu_usage_seconds_total{container_label_io_kubernetes_container_name="iqa-app"}[3m]))*100 > 150
+          for: 10s
+          labels:
+            severity: warning
+          annotations:
+            summary: IQA app high cpu usage
+            description: IQA app cpu consumption is at {{ humanize $value}}%

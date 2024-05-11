@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>CAD System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename = 'style.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="static/style.css" /> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <style type="text/css">
+      .box-menu {
+        position: absolute;
+        text-align: center;
+      }
+
+      .box-menu ul {
+        padding: 0px;
+        margin: 0px;
+        width: 90px;
+        list-style: none;
+      }
+
+      .box-menu ul li button:hover {
+        background: darkgray;
+      }
+
+      .box-menu ul li button {
+        padding: 0;
+        border: 1px solid black;
+        width: 80px;
+        height: 30px;
+        background-color: white;
+        font-size: 11px;
+        text-decoration: none;
+        color: black;
+      }
+    </style>
+  </head>
+<body>
+  <div class="container">
+    <div class="message">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        <span>{{ message }}</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div style="display: flex; justify-content: space-between; color: #6C757D">
+      <div>
+        <h2><a id="logo" href="/home" style="text-transform: none;">CAD System for NBI endoscope</a></h2>
+      </div>
+
+      <div style="color: #6C757D">
+        <form action="/confirm" method="POST"  style="text-align: right; height: 50%;">
+          <button class="submit" type="button" id="btn_confirm">End session & Save</button>
+        </form>
+      </div>
+    </div>
+
+    <div style="width: 100%; flex-direction: column">
+        <!-- <div style="width: 50%">
+            <h2><a href="/home" style="text-transform: none;">CAD System for NBI endoscope</a></h2>
+        </div>
+
+        <div style="width:50%; display: flex; flex-direction: row; color: #6C757D">
+          <form action="/confirm" method="POST"  style="text-align: right; height: 50%;">
+            <button class="submit" type="button" id="btn_confirm">End session & Save</button>
+          </form>
+        </div> -->
+
+        <button class="change_mode" type="button" id="btn_change_mode" style="border-radius: 10px; align-items: center; padding: 2px 5px 2px 5px;"  title="Switch to manual mode">
+          <img src="static/mats/toggle-switch-grey-set-icon-vector-16645655.png" alt="" style="margin-right: 5px; width: 35px"/>
+          <label style="text-transform: none; font-size: 10px;" for="">Auto mode</label>
+        </button>
+
+        <div style="width:50%; display: flex; color: #6C757D" class="options_">
+            <div style="height: 50%;"></div>
+
+            <form action="/confirm" method="POST" style="text-align: right; height: 50%">
+                <button class="submit" style="display: none" type="button" id="btn_confirm">
+                </button>
+              </form>
+
+        </div>
+    </div>
+
+    <div class="bounding_box">
+        <div
+          style="background-color: aqua; width: 150px"
+          class="blank_div"
+        ></div>
+
+        <div style="margin-left: 194px">
+          <h2 style="font-size: 18px; float: left" id="h2_image_quality">
+            Image quality
+          </h2>
+        </div>
+      </div>
+
+    <div class="wrapper" style="width: 100%; max-height: 515px; min-height: 515px; margin: 5px 0px 15px 0px">
+        <div class="review">
+            <div class="result">
+            <p id="already_confirm" style="color:green; font-size: 15px; text-align: center;">
+                Not Confirm
+            </p>
+            </div>
+            <hr>
+            <label class="title" style="margin-bottom: 2px;">Review</label>
+            <div class="options">
+              <div class="options">
+                <form action="/confirm" method="POST">
+
+                  <input class="bad" type="radio" id="radion_button_0" name="p" value="Bad">
+                    <label class="bad" id="label_radio_btn_0" for="bad">Atrophic gastritis</label>
+                    <br>
+                    <br>
+
+                    <input class="poor" type="radio" id="radion_button_1" name="p" value="Poor">
+                    <label class="poor" id="label_radio_btn_1" for="poor">Chronic gastritis</label>
+                    <br>
+                    <br>
+
+                    <input class="excellent" type="radio" id="radion_button_5" name="p" value="Excellent">
+                    <label class="excellent" id="label_radio_btn_5" for="exce">Antrophic metaplasia</label>
+                    <br>
+                    <br>
+
+                    <input class="fair" type="radio" id="radion_button_2" name="p" value="Fair">
+                    <label class="fair" id="label_radio_btn_2" for="fair">Intestinal metaplasia</label>
+                    <br>
+                    <br>
+
+                    <input class="good" type="radio" id="radion_button_3" name="p" value="Good">
+                    <label class="good" id="label_radio_btn_3" for="good">Normal</label>
+                    <br>
+                    <br>
+
+                    <input class="excellent" type="radio" id="radion_button_4" name="p" value="Excellent">
+                    <label class="excellent" id="label_radio_btn_4" for="exce">Uncertain</label>
+                    <br>
+                    <br>
+
+                    <!-- <div class="confirm-button" id="confir_current_image_option_pannel">Confirm current image</div> -->
+
+                </form>
+            </div>
+            </div>
+        </div>
+        <!-- <div class="redundant_div_wapper" style="width: 10%;"></div> -->
+        <div class="preview-img">
+                <div class="grid-container" id="grid-items">
+                    <div class="grid-item" id="grid_item_0"></div>
+                    <div class="grid-item" id="grid_item_1"></div>
+                    <div class="grid-item" id="grid_item_2"></div>
+                    <div class="grid-item" id="grid_item_3"></div>
+                    <div class="grid-item" id="grid_item_4"></div>
+                    <div class="grid-item" id="grid_item_5"></div>
+                    <div class="grid-item" id="grid_item_6"></div>
+                    <div class="grid-item" id="grid_item_7"></div>
+                    <div class="grid-item" id="grid_item_8"></div>
+                    <div class="grid-item" id="grid_item_9"></div>
+                    <div class="grid-item" id="grid_item_10"></div>
+                    <div class="grid-item" id="grid_item_11"></div>
+                    <div class="grid-item" id="grid_item_12"></div>
+                    <div class="grid-item" id="grid_item_13"></div>
+                    <div class="grid-item" id="grid_item_14"></div>
+                    <div class="grid-item" id="grid_item_15"></div>
+                    <div class="grid-item" id="grid_item_16"></div>
+                    <div class="grid-item" id="grid_item_17"></div>
+                    <div class="grid-item" id="grid_item_18"></div>
+                    <div class="grid-item" id="grid_item_19"></div>
+                </div>
+        </div>
+    </div>
+
+    <div class="controls">
+
+        <form action="/upload-image" method="POST" enctype="multipart/form-data">
+            <div class="custom-file">
+                <label id = "confirm_image">Confirm current image</label>
+                <span id="file-chosen">No file chosen</span>
+                <input type="file" class="img-input" accept="image/*" name="image" id="image" hidden>
+                <label class="choose-img" id = "btn_previous_image">Previous Image</label>
+                <label class="choose-img" id = "btn_next_image">Next Image</label>
+                <!-- <label class="choose-img" for="image">Choose Image</label> -->
+
+            </div>
+        </form>
+
+    </div>
+  </div>
+
+    <!-- <script src="static/logging.json"></script>
+    <script src="static/app.js"></script> -->
+
+    <script src="{{ url_for('static', filename = 'logging.json') }}"></script>
+    <script src="{{ url_for('static', filename = 'app.js') }}"></script>
+  </body>
+</html>

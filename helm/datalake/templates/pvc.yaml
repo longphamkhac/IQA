@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.pvc.name }}
+  annotations:
+    werf.io/weight: "{{ .Values.pv.weight }}"
+spec:
+  accessModes:
+    - {{ .Values.pv.accessModes }}
+  storageClassName: {{ .Values.pv.storageClassName }}
+  volumeName: {{ .Values.pv.name }}
+  resources:
+    requests:
+      storage: {{ .Values.pv.storage }}

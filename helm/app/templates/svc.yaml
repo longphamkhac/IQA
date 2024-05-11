@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.svc.name }}
+  annotations:
+    werf.io/weight: "{{ .Values.deploy.weight }}"
+spec:
+  selector:
+    app: {{ .Values.deploy.name }}
+  type: {{ .Values.svc.type }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.svc.port }}
+      targetPort: {{ .Values.svc.targetPort }}

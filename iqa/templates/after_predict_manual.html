@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>CAD System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename = 'style2.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="static/style2.css" /> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <style type="text/css">
+      .box-menu {
+        position: absolute;
+        text-align: center;
+      }
+
+      .box-menu ul {
+        padding: 0px;
+        margin: 0px;
+        width: 90px;
+        list-style: none;
+      }
+
+      .box-menu ul li button:hover {
+        background: darkgray;
+      }
+
+      .box-menu ul li button {
+        padding: 0;
+        border: 1px solid black;
+        width: 80px;
+        height: 30px;
+        background-color: white;
+        font-size: 11px;
+        text-decoration: none;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div style="width: 100%; flex-direction: column">
+        <div style="width: 50%">
+          <h2>CAD System for NBI endoscope</h2>
+        </div>
+
+        <button class="change_mode" type="button" id="btn_change_mode" style="border-radius: 10px; align-items: center; padding: 2px 5px 2px 5px;" title="Switch to auto mode">
+          <img src="static/mats/toggle-switch-grey-set-icon-vector-16645654.png" alt="" style="margin-right: 5px; width: 35px"/>
+          <label style="text-transform: none; font-size: 10px;" for="">Manual mode</label>
+        </button>
+
+        <div style="width: 50%; display: none; color: #6c757d" class="options_">
+          <div style="height: 50%"></div>
+
+          <form action="/home" method="POST" style="text-align: right; height: 50%"></form>
+
+          <form
+            action="/confirm"
+            method="POST"
+            style="text-align: right; height: 50%"
+          >
+            <!-- <input class="submit" type="submit" id = "btn_confirm", value="Confirm session & Save"> -->
+            <button
+              class="submit"
+              style="display: none"
+              type="button"
+              id="btn_confirm"
+            >
+              <!-- Save & Return Back To Auto Mode -->
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="bounding_box">
+        <div
+          style="background-color: aqua; width: 150px"
+          class="blank_div"
+        ></div>
+
+        <div style="margin-left: 194px">
+          <h2 style="font-size: 18px; float: left" id="h2_image_quality">
+            Image quality
+          </h2>
+
+          <div
+            id="btn_frames"
+            style="display: flex; flex-direction: row; float: right"
+          >
+            <button
+              type="button"
+              id="btn_bounding_box"
+              title="Show all boxes"
+              style="
+                border-radius: 10px;
+                margin-left: 10px;
+
+                align-items: center;
+              "
+            >
+              <img src="static/mats/6684702.png" alt="" style="width: 25px" />
+            </button>
+
+            <button
+              type="button"
+              id="btn_clear_boxes"
+              title="Delete all boxes"
+              style="
+                border-radius: 10px;
+                margin-left: 10px;
+                padding: 0px 10px 0px 10px;
+                align-items: center;
+              "
+            >
+              <img src="static/mats/1214428.png" alt="" style="width: 20px" />
+            </button>
+
+            <div
+              id="boxMenu"
+              class="box-menu"
+              style="display: none; z-index: 99 !important"
+            >
+              <ul class="box-options">
+                <li>
+                  <button type="button" id="btn_remove_box">Remove</button>
+                </li>
+                <li>
+                  <button type="button" id="btn_modify_box">Modify</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrapper" style="width: 100%; max-height: 515px; min-height: 515px; margin: 5px 0px 15px 0px;">
+
+        <div class="review">
+          <div class="result">
+            <p id="already_confirm" style="color:green; font-size: 15px; text-align: center;">Not confirm</p>
+          </div>
+          <hr />
+          <label class="title" style="margin-bottom: 2px;">Review</label>
+          <div class="options" id="btn_options">
+            <form action="/confirm" method="POST">
+
+              <input
+                class="option"
+                type="radio"
+                id="radion_button_0"
+                name="p"
+                value="Bad"
+                disabled
+              />
+              <label id="label_radio_btn_0" for="bad">Atrophic gastritis</label>
+              <br />
+              <br />
+
+              <input
+                class="option"
+                type="radio"
+                id="radion_button_1"
+                name="p"
+                value="Poor"
+                disabled
+              />
+              <label id="label_radio_btn_1" for="poor">Chronic gastritis</label>
+              <br />
+              <br />
+
+              <input
+                class="option"
+                type="radio"
+                id="radion_button_5"
+                name="p"
+                value="Excellent"
+                disabled
+              />
+              <label id="label_radio_btn_5" for="exce">Antrophic metaplasia</label>
+              <br />
+              <br />
+
+              <input
+                class="option"
+                type="radio"
+                id="radion_button_2"
+                name="p"
+                value="Fair"
+                disabled
+              />
+              <label id="label_radio_btn_2" for="fair">Intestinal metaplasia</label>
+              <br />
+              <br />
+
+              <input
+                class="option"
+                type="radio"
+                id="radion_button_3"
+                name="p"
+                value="Good"
+                disabled
+              />
+              <label id="label_radio_btn_3" for="good">Normal</label>
+              <br />
+              <br />
+
+              <div>
+                <input class="option" type="radio" id="radion_button_4" name="p" value="Excellent" disabled/>
+                <label id="label_radio_btn_4" for="exce">Uncertain</label>
+              </div>
+
+              <br />
+              <br />
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <img src="" alt="endoscope image" class="preview-img" id="endoscope-img" width="640" height="512" style="display: none"/>
+          <canvas id="img-canvas" width="640" height="512" style="margin-left: 44px; border-radius: 8px;"></canvas>
+          <div class="grid-container" id="grid-items"></div>
+        </div>
+
+      </div>
+
+      <div class="controls">
+        <form
+          action="/upload-image"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <div class="custom-file">
+            <label id="confirm_image">Confirm current image</label>
+            <span id="file-chosen">No file chosen</span>
+            <input
+              type="file"
+              class="img-input"
+              accept="image/*"
+              name="image"
+              id="image"
+              hidden
+            />
+            <label class="choose-img" id="btn_previous_image"
+              >Previous Image</label
+            >
+            <label class="choose-img" id="btn_next_image">Next Image</label>
+            <!-- <label class="choose-img" for="image">Choose Image</label> -->
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename = 'logging.json') }}"></script>
+    <script src="{{ url_for('static', filename = 'app_2.js') }}"></script>
+
+    <!-- <script src="static/logging.json"></script>
+    <script src="static/app_2.js"></script> -->
+  </body>
+</html>

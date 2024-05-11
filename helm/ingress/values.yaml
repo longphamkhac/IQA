@@ -1,0 +1,3 @@
+ingress:
+  name: iqa-ingress
+  annotations: nginx

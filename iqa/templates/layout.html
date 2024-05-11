@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>CAD System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- <link rel="stylesheet" type="text/css" href="main.css"> -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'main.css') }}">
+    <!-- <link rel="stylesheet" type="image" href="{{ url_for('static', filename = 'bg.png') }}"> -->
+
+
+</head>
+<body>
+    <div class="container" >
+        <div id="blank_div" style="height: 60%;">
+            <div class="message" style="margin-left: 19px;">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                <span>{{ message }}</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+        <div id="control_buttons" style="width: 100%; height: 40%; display: flex; flex-direction: row;">
+            <div id="images_buttons" style="width: 50%; display: flex; align-items: center;">
+                <div style="height: 80%; width: 100%; display: flex; flex-direction: column; align-items: center;">
+                    <div style="height: 100%; width: 60%; background-color: rgba(29, 108, 126, 0.6); border-radius: 20px; display: flex;">
+                        <div class="controls" style="text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: space-around;">
+
+                            <form action="/upload-image" method="POST" enctype="multipart/form-data">
+                                <div id="btn-img" class="custom-file">
+                                    <input type="file" class="img-input" accept="image/*" name="image" id="image" multiple hidden>
+                                    <label class="choose-img" for="image">Choose Image</label>
+                                    <br>
+                                    <span id="file-chosen" style="color: white;">No file chosen</span>
+                                    <button type="submit" class="upload">Auto-Process Images</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="video_buttons" style="width: 50%; display: flex; align-items: center;">
+                <div style="height: 80%; width: 100%; display: flex; flex-direction: column; align-items: center;">
+                    <div style="height: 100%; width: 60%; background-color: rgba(29, 108, 126, 0.6); border-radius: 20px; display: flex; flex-direction: column;">
+                        <div class="controls" style="text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: space-around;">
+
+                            <form action="/upload-video" method="POST" enctype="multipart/form-data">
+                                <div class="custom-file" style="height: 100%; width: 100%;">
+                                    <input type="file" class="video-input" name="video" id="video" hidden>
+                                    <label class="choose-video" for="video">Choose Video</label>
+                                    <br>
+                                    <span id="file-chosen-video" style="color: white;">No file chosen</span>
+                                    <br>
+                                    <button type="submit" class="upload">Process Video</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="{{ url_for('static', filename = 'script.js') }}"></script>
+    <!-- <script src="script.js"></script> -->
+
+</body>
+</html>

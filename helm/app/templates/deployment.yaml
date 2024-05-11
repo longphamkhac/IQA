@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploy.name }}
+  annotations:
+    werf.io/weight: "{{ .Values.deploy.weight }}"
+spec:
+  replicas: {{ .Values.deploy.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deploy.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deploy.name }}
+    spec:
+      containers:
+        - name: {{ .Values.deploy.name }}
+          image: "{{ .Values.deploy.container.image.repository }}:{{ .Values.deploy.container.image.tag }}"
+          imagePullPolicy: {{ .Values.deploy.container.image.imagePullPolicy }}
+          volumeMounts:
+            - mountPath: {{ .Values.deploy.container.volumeMounts.tempPath }}
+              name: {{ .Values.deploy.name }}
+          #   - mountPath: {{ .Values.deploy.container.volumeMounts.userData }}
+          #     name: {{ .Values.deploy.name }}
+          ports:
+            - name: http-ui
+              containerPort: {{ .Values.deploy.container.port_ui }}
+            - name: http-metrics
+              containerPort: {{ .Values.deploy.container.port_metrics }}
+      volumes:
+        - name: {{ .Values.deploy.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.deploy.claimName }}

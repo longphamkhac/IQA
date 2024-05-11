@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  align-items: center;
+  background: #E3F2FD;
+}
+
+
+.container {
+  height: 600px;
+  width: 1000px;
+  background-image: url('/static/bg.png');
+  border-radius: 20px;
+  box-shadow: 20px 20px 50px rgba(0,0,0,0.3);
+
+  object-fit: contain;
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position: center;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+.controls button, .wrapper .options .submit, .controls label {
+  margin-left: 19px;
+  padding: 11px 19px;
+  font-size: 14px;
+  border-radius: 3px;
+  outline: none;
+  /* color: #fff; */
+  cursor: pointer;
+  /* background: none; */
+  text-transform: uppercase;
+}
+
+
+.wrapper .options .submit:hover {
+  color: #fff;
+  background: #5372F0;
+}
+
+.controls label:hover {
+  /* color: #fff; */
+  background: #bfd0df;
+}
+
+.upload {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.upload:hover{
+  background: #bfd0df;
+}
+
+.choose-video {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: 1px solid rgb(255, 255, 255);
+
+}
+
+.choose-img {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: 1px solid rgb(255, 255, 255);
+
+}

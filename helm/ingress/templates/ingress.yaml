@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.ingress.name }}
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.ingress.annotations }}
+spec:
+  rules:
+    - host: iqa.system.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: iqa-svc
+              port:
+                number: 6789
+    - host: iqa.monitoring.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: grafana
+              port:
+                number: 3000

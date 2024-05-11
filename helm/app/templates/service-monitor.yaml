@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  namespace: default
+  name: iqa-service-monitor
+  labels:
+    component: main
+spec:
+  namespaceSelector:
+    matchNames:
+      - default
+  selector:
+    matchLabels:
+      app: iqa-monitoring
+  endpoints:
+  - port: http-metrics
+    path: /metrics

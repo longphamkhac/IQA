@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploy.name }}
+  annotations:
+    werf.io/weight: "{{ .Values.pv.weight }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.deploy.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deploy.name }}
+    spec:
+      containers:
+        - name: minio
+          image: quay.io/minio/minio:latest
+          env:
+          - name: MINIO_ACCESS_KEY
+            value: minio_access_key
+          - name: MINIO_SECRET_KEY
+            value: minio_secret_key
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /data
+              name: {{ .Values.deploy.name }}
+          # ports:
+          #   - containerPort: 9090
+          #   - containerPort: 9000
+          command:
+            - /bin/bash
+            - -c
+          args:
+            - minio server /data --console-address :9090
+      volumes:
+        - name: {{ .Values.deploy.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.pvc.name }}

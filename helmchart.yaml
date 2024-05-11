@@ -1,0 +1,18 @@
+releases:
+  - name: iqa-ingress
+    namespace: default
+    chart: helm/ingress
+    wait: true
+    installed: true
+
+  - name: iqa-datalake
+    namespace: default
+    chart: helm/datalake
+    wait: true
+    installed: true
+
+  - name: iqa-app
+    namespace: default
+    chart: helm/app
+    wait: true
+    installed: true

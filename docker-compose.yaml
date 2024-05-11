@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  minio:
+    image: minio/minio
+    container_name: iqa-datalake
+    hostname: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_storage:/data
+    environment:
+      MINIO_ACCESS_KEY: minio_access_key
+      MINIO_SECRET_KEY: minio_secret_key
+    command: server --console-address ":9001" /data
+    networks:
+      - iqa-network
+
+  iqa-app:
+    build: .
+    container_name: iqa-app
+    ports:
+      - "6789:6789"
+    networks:
+      - iqa-network
+
+volumes:
+  minio_storage:
+networks:
+  iqa-network:

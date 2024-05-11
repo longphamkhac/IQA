@@ -1,0 +1,30 @@
+sc:
+  name: iqa-filestore
+  weight: 0
+
+pv:
+  name: iqa-filestore
+  weight: 1
+  storage: 1Ti
+  accessModes: ReadWriteMany
+  storageClassName: iqa-filestore
+  volumeHandle:
+    location: "us-central1-c"
+    instanceName: iqa-filestore
+    shareName: shared
+  volumeAttributes:
+    ip: 10.71.238.122
+    volume: shared
+
+pvc:
+  name: iqa-filestore
+  weight: 2
+
+deploy:
+  name: iqa-datalake
+  weight: 3
+
+svc:
+  name: iqa-datalake
+  weight: 4
+  type: ClusterIP
