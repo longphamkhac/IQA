@@ -86,7 +86,7 @@ helm upgrade --install nginx-ingress helm/nginx-ingress
 * Deploy all three main components: **iqa-ingress**, **iqa-datalake**, **iqa-app** by these commands:
 ```shell
 helmfile init
-helmfile apply -f helmchart.yaml
+helmfile apply -f helmfile.yaml
 ```
 
 * Get External IP of NGINX-ingress:
