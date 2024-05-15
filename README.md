@@ -51,7 +51,7 @@ You can access the Web and Minio UI through port 6789 and 9000 respectively:
     ```
 ### Deploy application to GKE cluster
 #### Create GKE cluster using Terraform
-* [Install the gcloud CLI](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+* [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 * Create a GKE cluster using **Terraform** by the following commands:
 ```shell
 cd iac/terraform
